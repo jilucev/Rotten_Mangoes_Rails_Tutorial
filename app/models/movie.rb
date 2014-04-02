@@ -2,6 +2,9 @@ class Movie < ActiveRecord::Base
 
   has_many :reviews
 
+  mount_uploader :poster, PosterUploader
+
+
   validates :title,
     presence: true
 
@@ -14,8 +17,8 @@ class Movie < ActiveRecord::Base
   validates :description,
     presence: true
 
-  validates :poster_image_url,
-    presence: true
+  # validates :poster_image_url,
+  #   presence: true
 
   validates :release_date,
     presence: true
@@ -24,12 +27,19 @@ class Movie < ActiveRecord::Base
 
   def review_average
     #return nil if reviews.empty?
-    if  reviews.sum(:rating_out_of_ten) / reviews.size == 0
-      render :new
+
+    if reviews.empty?
+      return 0
     else
-      reviews.sum(:rating_out_of_ten) / reviews.size
-    end
+    reviews.sum(:rating_out_of_ten)/reviews.size
   end
+end
+  #   if  reviews.sum(:rating_out_of_ten) / reviews.size == 0
+  #     render :new
+  #   else
+  #     reviews.sum(:rating_out_of_ten) / reviews.size
+  #   end
+  # end
   #the above method was a creative guess!
 
 #we can access this method anywhere (movies index, movies show....) so just add this
