@@ -1,8 +1,18 @@
-<%= form_for @movie do |m| %>
-<div>
-      <%= f.label "title" %><br>
-    <%= f.text_field "title" %>
+<%= form_for @movie do |f| %>
+  <% if @movie.errors.any? %>
+    <div>
+    <%= pluralize(@movie.errors.count, "error") %> 
+    <ul>
+      <% @movie.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
   </div>
+  <% end %>
+
+    <%= f.label "title" %><br>
+    <%= f.text_field "title" %>
+    </div>
   <div>
     <%= f.label "director" %><br>
     <%= f.text_field "director" %>
@@ -17,13 +27,13 @@
     </div>
     <div>
      <%= f.label "poster_image_url" %>
-     <%= url_field "poster_image_url" %> 
+     <%= f.url_field "poster_image_url" %> 
      <div>
      </div>
      <%= f.label "release_date" %>
-     <%= date_field "release_date" %>
+     <%= f.date_field "release_date" %>
      <div>
      </div>
      <%= f.submit "Submit" %>
    </div>
-     <% end %>
+<% end %>

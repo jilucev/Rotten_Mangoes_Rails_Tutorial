@@ -5,7 +5,7 @@ class MoviesController < ApplicationController
   end
 
   def show
-    @movie.find(params[:id])
+    @movie = Movie.find(params[:id])
   end
 
   def new
@@ -15,7 +15,7 @@ class MoviesController < ApplicationController
   def create
     @movie = Movie.new(movie_params)
       if @movie.save
-        redirect_to movies_path
+        redirect_to movies_path, notice: "#{@movie.title} was submitted successfully!"
       else
         render :new
       end
@@ -36,6 +36,8 @@ class MoviesController < ApplicationController
     end
   end
 
+  # <%= link_to movie.title, movie_path(movie) %> | <%= movie.review_average %>10</h2>
+
   def destroy
     @movie = Movie.find(params[:id])
     @movie.destroy
@@ -51,4 +53,5 @@ class MoviesController < ApplicationController
       :runtime_in_minutes, :poster_image_url,
       :description
     )
+  end
 end
