@@ -3,10 +3,14 @@
 <%= link_to "Submit a Movie!!", new_movie_path %>
 <hr>
 <% @movies.each do |movie| %>
-<%= link_to image_tag(movie.poster_image_url), movie_path(movie) %>
-<h2><%= link_to movie.title, movie_path(movie) %> | <%= movie.review_average %>/10</h2>
- <h4><%= movie.release_date %></h4>
-<h4>Dir. <%= movie.director %> | <%= movie.runtime_in_minutes %> minutes </h4>
-<h4><%= movie.description %></h4>
-<hr>
+  <% if(movie.poster_image_url) %>
+    <%= image_tag(movie.poster_image_url, width: "200") %>
+  <% else %>
+    <%= image_tag(movie.poster.thumb.to_s) %>
   <% end %>
+  <h2><%= link_to movie.title, movie_path(movie) %> | <%= movie.review_average %>/10</h2>
+  <h4><%= movie.release_date %></h4>
+  <h4>Dir. <%= movie.director %> | <%= movie.runtime_in_minutes %> minutes </h4>
+  <h4><%= movie.description %></h4>
+  <hr>
+<% end %>
