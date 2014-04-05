@@ -2,6 +2,22 @@
 <hr>
 <%= link_to "Submit a Movie!!", new_movie_path %>
 <hr>
+
+<h4>Trowl the ocean for treasures</h4>
+<%= form_tag movies_path, method: :get do %>
+    <%= text_field_tag :title, nil, placeholder: "Search by title" %>
+    <%= text_field_tag :director, nil, placeholder: "Search by director" %>
+    
+    <%= select_tag :runtime_in_minutes, options_for_select({ 
+      "Under 90 minutes" =>  "0,90",
+      "90 - 120 minutes" => "90,120",
+      "Over 120 minutes" => "120,-1"
+    }) %>
+    <%= submit_tag("search") %>
+<% end %>
+  
+
+
 <% @movies.each do |movie| %>
   <% if(movie.poster_image_url) %>
     <%= image_tag(movie.poster_image_url, width: "200") %>

@@ -25,6 +25,28 @@ class Movie < ActiveRecord::Base
 
   validate :release_date_is_in_the_future
 
+  # def self.ordered_by_release_date
+  #   order(release_date: :desc, title: :asc)
+  # end
+
+  # scope :ordered_by_release_date, -> { order(release_date: :desc, title: :asc) }
+  # #a lambda passes business logic to a method. This is common when using active record.
+  # #in ruby 1.9 and later, the arrow can replace the word 'lambda'.
+
+  scope :with_director, -> ( director ) do
+    where(director: director)
+  end
+
+  scope :matching_title, -> (title) do
+    where("title like?", "%#{ title }%")
+  end
+
+
+  def self.search_by_runtime(min, max)
+     self.where("runtime_in_minutes BETWEEN ? AND ?", min, max)
+  end
+
+
   def review_average
     #return nil if reviews.empty?
 
@@ -32,18 +54,9 @@ class Movie < ActiveRecord::Base
       return 0
     else
     reviews.sum(:rating_out_of_ten)/reviews.size
+    end
   end
-end
-  #   if  reviews.sum(:rating_out_of_ten) / reviews.size == 0
-  #     render :new
-  #   else
-  #     reviews.sum(:rating_out_of_ten) / reviews.size
-  #   end
-  # end
-  #the above method was a creative guess!
-
-#we can access this method anywhere (movies index, movies show....) so just add this
-#erb any time you want to display the average: <%= @movie.review_average %> /10
+ 
 
   protected
 

@@ -1,0 +1,7 @@
+<h1>Details for user</h1>
+
+<%= link_to "Back to all users", admin_user_path %>
+<h2><%= @user.full_name %> 
+
+<%= link_to "delete", admin_user_path(@user),
+method: :delete, confirm: "You sure?" %>

@@ -1,5 +1,6 @@
 EvenMoreRottenMangoes::Application.routes.draw do
 
+  # get "adminusers/index"
   # get "sessions/new"
   # get "sessions/create"
   # get "users/new"
@@ -11,9 +12,22 @@ EvenMoreRottenMangoes::Application.routes.draw do
     resources :reviews, only: [:new, :create]
   end
 
+  namespace :admin do
+    resources :users, only: [:index, :show, :destroy]
+  end
+
+  resource :password, only: [:edit, :update]
+
   resources :users, only: [:new, :create]
   resources :sessions, only: [:new, :create, :destroy]
   root to: 'movies#index'
+
+  # sessions_controller - login/logout friends/friends_controller/logged_in_friends
+  #new this is our log in form (get)
+  #create this is the actual log in happening (post)
+  #destroy log out (delete)
+
+  #a RESTFUL controller uses 7 actions that correspond to the 7 actions that come along with resources:
 
 
   # The priority is based upon order of creation: first created -> highest priority.

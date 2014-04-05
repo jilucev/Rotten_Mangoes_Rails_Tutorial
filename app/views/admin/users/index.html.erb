@@ -1,0 +1,23 @@
+<%= link_to "Back to all movies", movies_path %><br/>
+
+<h1>Boss, here are your users. Click on their email addresses to view their juicy deets.</h1>
+
+ <h2>All users:</h2>
+
+<table class= "table">
+ <tr>
+  <th>email</th>
+  <th>name</th>
+  <th>joined</th>
+ </tr>
+
+ <% @user.each do |user| %>
+
+ <tr>
+  <td><%= link_to user.email, admin_user_path(user) %></td>
+  <td><%= user.full_name %></td>
+  <td><%= user.created_at %></td>
+  </tr>
+    <% end %>
+</table>
+  
